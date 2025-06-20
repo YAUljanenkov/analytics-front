@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  fkex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+}
+
+.menuWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__title {
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(32, 27, 16, 1);
+  background-color: rgba(203, 129, 255, 1);
+}

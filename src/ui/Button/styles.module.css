@@ -1,0 +1,39 @@
+.button {
+    border-radius: 16px;
+    padding: 8px 16px;
+    border: none;
+    height: 70px;
+    width: 200px;
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 110%;
+    letter-spacing: 0%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+.button__primary {
+    background-color: rgba(42, 232, 129, 1);
+    color: rgba(32, 27, 16, 1);
+}
+
+.button__secondary {
+    background-color: rgba(32, 27, 16, 1);
+    color: white;
+}
+
+.button__accent {
+    background-color: rgba(252, 227, 0, 1);
+    color: rgba(32, 27, 16, 1);
+}
+
+.button__disabled {
+    background-color: rgba(192, 192, 192, 1));
+    color: rgba(120, 120, 120, 1);
+    cursor: not-allowed;
+}

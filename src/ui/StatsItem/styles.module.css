@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 20px);
+  height: 80px;
+  border-radius: 20px;
+  padding: 10px;
+  gap: 5px;
+}
+
+.container__white {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.container__pink {
+  background-color: rgba(234, 205, 255, 1);
+}
+
+.value {
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 110%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: rgba(32, 27, 16, 1);
+}
+
+.label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 110%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: rgba(32, 27, 16, 1);
+}
