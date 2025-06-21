@@ -23,6 +23,15 @@ const View: React.FC = () => {
         setStatus(ButtonUploadStatus.Loaded);
     };
 
+    const handleFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        const file = event.dataTransfer.files?.[0];
+        console.log('Files dropped:', event.dataTransfer.files);
+        setFileName(file?.name);
+        setFile(file ?? null);
+        setStatus(ButtonUploadStatus.Loaded);
+    };
+
     const handleFileSend = () => {
         if (file) {
             AggregateService.loadFile(file, setStats, setStatus);
@@ -48,6 +57,12 @@ const View: React.FC = () => {
                 onChange={handleFileUpload}
                 fileName={fileName}
                 onAbort={handleAbort}
+                onDrop={handleFileDrop}
+                onDragOver={(e) => {
+                    e.preventDefault();
+                    setStatus(ButtonUploadStatus.Dragging);
+                }}
+                onDragLeave={() => setStatus(ButtonUploadStatus.Idle)}
             />
             <Button onClick={handleFileSend}>Отправить</Button>
             {stats && (

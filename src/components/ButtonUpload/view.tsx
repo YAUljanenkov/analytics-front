@@ -9,6 +9,9 @@ interface ButtonUploadProps {
     status?: ButtonUploadStatus;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onAbort?: () => void;
+    onDragOver?: (e: React.DragEvent<HTMLDivElement>) => void;
+    onDrop?: (e: React.DragEvent<HTMLDivElement>) => void;
+    onDragLeave?: () => void;
 }
 
 const getButtonTextByStatus = (
@@ -70,6 +73,9 @@ const ButtonUpload: React.FC<ButtonUploadProps> = ({
     fileName,
     onChange,
     onAbort,
+    onDrop,
+    onDragLeave,
+    onDragOver,
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const isShowCancelButton =
@@ -79,6 +85,9 @@ const ButtonUpload: React.FC<ButtonUploadProps> = ({
     return (
         <div
             className={classNames(styles.wrapper, statusToWrapperClass[status])}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={onDrop}
         >
             <div className={styles.buttonContainer}>
                 <button

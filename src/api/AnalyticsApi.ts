@@ -5,7 +5,7 @@ export const AnalyticsApi = {
     loadFile: async (file: File, onData: (data: Stats) => void) => {
         const reader = await aggregateData({
             file,
-            rows: 1000,
+            rows: 10000,
         });
 
         const decoder = new TextDecoder();
