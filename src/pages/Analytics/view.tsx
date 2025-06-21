@@ -1,24 +1,41 @@
-import React from 'react';
-import { Header, ButtonUpload, ButtonUploadStatus } from '../../components';
+import React, { useState } from 'react';
+import { Header, ButtonUpload } from '../../components';
 import { Button, StatsItem } from '../../ui';
 import styles from './styles.module.css';
 import type { Stats } from 'src/types';
 import { parseDayNumber } from '../../utils';
-
-const stats: Stats | null = null; //{
-//     total_spend_galactic: 151201216.35272926,
-//     rows_affected: 303100,
-//     less_spent_at: 181,
-//     big_spent_at: 43,
-//     less_spent_value: 228109.82492818148,
-//     big_spent_value: 588638.5993788167,
-//     average_spend_galactic: 498.8492786299217,
-//     big_spent_civ: 'blobs',
-//     less_spent_civ: 'humans',
-//     invalid_rows: 0,
-// };
+import { AggregateService } from '../../services/AggregateService';
+import { useStore, type Store } from '../../store';
+import { ButtonUploadStatus } from '../../types';
 
 const View: React.FC = () => {
+    const stats: Stats = useStore((state: Store) => state.stats);
+    const status: ButtonUploadStatus = useStore((state: Store) => state.status);
+    const setStats = useStore((state: Store) => state.setStats);
+    const setStatus = useStore((state: Store) => state.setStatus);
+    const [fileName, setFileName] = useState<string | undefined>(undefined);
+    const [file, setFile] = useState<File | null>(null);
+
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        setFileName(file?.name);
+        setFile(file ?? null);
+        setStatus(ButtonUploadStatus.Loaded);
+    };
+
+    const handleFileSend = () => {
+        if (file) {
+            AggregateService.loadFile(file, setStats, setStatus);
+        }
+    };
+
+    const handleAbort = () => {
+        setStatus(ButtonUploadStatus.Idle);
+        setFileName(undefined);
+        setFile(null);
+        setStats(null);
+    };
+
     return (
         <div className={styles.wrapper}>
             <Header />
@@ -27,11 +44,12 @@ const View: React.FC = () => {
                 о нём за сверхнизкое время
             </h2>
             <ButtonUpload
-                status={ButtonUploadStatus.Idle}
-                onClick={() => console.log('Upload clicked')}
-                onAbort={() => console.log('Upload aborted')}
+                status={status}
+                onChange={handleFileUpload}
+                fileName={fileName}
+                onAbort={handleAbort}
             />
-            <Button>Отправить</Button>
+            <Button onClick={handleFileSend}>Отправить</Button>
             {stats && (
                 <div className={styles.analytics}>
                     <div className={styles.analytics__column}>
@@ -59,7 +77,7 @@ const View: React.FC = () => {
                         />
                         <StatsItem
                             value={parseDayNumber(stats.big_spent_at)}
-                            label="количество обработанных записей"
+                            label="день года с максимальными расходами"
                         />
                         <StatsItem
                             value={stats.big_spent_value}

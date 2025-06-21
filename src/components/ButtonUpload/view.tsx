@@ -1,21 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './styles.module.css';
 import { proiconsCancel, mingcuteLoading } from '../../assets';
 import classNames from 'classnames';
-
-export enum ButtonUploadStatus {
-    Idle,
-    Dragging,
-    Loaded,
-    Parsing,
-    Success,
-    Error,
-}
+import { ButtonUploadStatus } from '../../types';
 
 interface ButtonUploadProps {
     fileName?: string;
     status?: ButtonUploadStatus;
-    onClick?: () => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onAbort?: () => void;
 }
 
@@ -76,9 +68,10 @@ const statusToButtonParams: Record<ButtonUploadStatus, string> = {
 const ButtonUpload: React.FC<ButtonUploadProps> = ({
     status = ButtonUploadStatus.Idle,
     fileName,
-    onClick,
+    onChange,
     onAbort,
 }) => {
+    const inputRef = useRef<HTMLInputElement>(null);
     const isShowCancelButton =
         status === ButtonUploadStatus.Loaded ||
         status === ButtonUploadStatus.Success ||
@@ -89,7 +82,7 @@ const ButtonUpload: React.FC<ButtonUploadProps> = ({
         >
             <div className={styles.buttonContainer}>
                 <button
-                    onClick={onClick}
+                    onClick={() => inputRef.current?.click()}
                     className={classNames(
                         styles.button,
                         statusToButtonParams[status]
@@ -97,6 +90,14 @@ const ButtonUpload: React.FC<ButtonUploadProps> = ({
                 >
                     {getButtonTextByStatus(status, fileName)}
                 </button>
+                <input
+                    ref={inputRef}
+                    onChange={onChange}
+                    type="file"
+                    id="fileInput"
+                    accept=".csv"
+                    style={{ display: 'none' }}
+                />
                 {isShowCancelButton && (
                     <button className={styles.cancelButton} onClick={onAbort}>
                         <img src={proiconsCancel} alt="cancel" />

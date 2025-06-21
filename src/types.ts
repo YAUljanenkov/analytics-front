@@ -17,3 +17,12 @@ export interface Stats {
     less_spent_civ: string;
     invalid_rows: number;
 }
+
+export enum ButtonUploadStatus {
+    Idle,
+    Dragging,
+    Loaded,
+    Parsing,
+    Success,
+    Error,
+}

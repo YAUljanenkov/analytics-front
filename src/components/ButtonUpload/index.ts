@@ -1,1 +1,1 @@
-export { default as ButtonUpload, ButtonUploadStatus } from './view';
+export { default as ButtonUpload } from './view';
