@@ -1,5 +1,5 @@
 import type { Stats } from 'src/types';
-import { aggregateData } from './requests';
+import { aggregateData, generateFile } from './requests';
 
 export const AnalyticsApi = {
     loadFile: async (file: File, onData: (data: Stats) => void) => {
@@ -29,5 +29,11 @@ export const AnalyticsApi = {
                 return;
             }
         }
+    },
+
+    generateFile: async (): Promise<File> => {
+        const content = await generateFile();
+        const blob = new Blob([content], { type: 'text/csv' });
+        return new File([blob], 'generated.csv', { type: 'text/csv' });
     },
 };

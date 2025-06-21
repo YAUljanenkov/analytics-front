@@ -1,24 +1,24 @@
 import type { Stats } from 'src/types';
-import { ButtonUploadStatus } from '../types';
+import { ActionButtonStatus } from '../types';
 import { AnalyticsApi } from '../api';
 
 export const AggregateService = {
     loadFile: async (
         file: File,
         onData: (s: Stats) => void,
-        setStatus: (s: ButtonUploadStatus) => void
+        setStatus: (s: ActionButtonStatus) => void
     ) => {
         if (!file.name.includes('.csv')) {
-            setStatus(ButtonUploadStatus.Error);
+            setStatus(ActionButtonStatus.Error);
             return;
         }
 
         try {
-            setStatus(ButtonUploadStatus.Parsing);
+            setStatus(ActionButtonStatus.Parsing);
             await AnalyticsApi.loadFile(file, onData);
-            setStatus(ButtonUploadStatus.Success);
+            setStatus(ActionButtonStatus.Success);
         } catch {
-            setStatus(ButtonUploadStatus.Error);
+            setStatus(ActionButtonStatus.Error);
         }
     },
 };

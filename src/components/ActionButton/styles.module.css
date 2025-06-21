@@ -23,6 +23,16 @@
     gap: 10px;
 }
 
+.generateWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: none !important;
+    border: none !important;
+}
+
 .wrapper__idle {
     background-color: rgba(234, 205, 255, 1);
 }

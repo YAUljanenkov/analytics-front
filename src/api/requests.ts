@@ -22,11 +22,11 @@ export function aggregateData({
     });
 }
 
-export function generateFile(): Promise<string> {
-    return fetch(GENERATE_FILE).then((response) => {
+export function generateFile(): Promise<Blob> {
+    return fetch(`${GENERATE_FILE}?size=0.1`).then((response) => {
         if (!response.ok) {
             throw new Error('Generate fetch failed');
         }
-        return response.text();
+        return response.blob();
     });
 }

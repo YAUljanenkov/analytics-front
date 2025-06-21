@@ -18,11 +18,13 @@ export interface Stats {
     invalid_rows: number;
 }
 
-export enum ButtonUploadStatus {
+export enum ActionButtonStatus {
     Idle,
     Dragging,
+    Generating,
     Loaded,
     Parsing,
+    Generated,
     Success,
     Error,
 }

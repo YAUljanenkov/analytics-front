@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Header, ButtonUpload } from '../../components';
+import { Header, ActionButton } from '../../components';
 import { Button, StatsItem } from '../../ui';
 import styles from './styles.module.css';
 import type { Stats } from 'src/types';
 import { parseDayNumber } from '../../utils';
-import { AggregateService } from '../../services/AggregateService';
+import { AggregateService } from '../../services';
 import { useStore, type Store } from '../../store';
-import { ButtonUploadStatus } from '../../types';
+import { ActionButtonStatus } from '../../types';
 
 const View: React.FC = () => {
     const stats: Stats = useStore((state: Store) => state.stats);
-    const status: ButtonUploadStatus = useStore((state: Store) => state.status);
+    const status: ActionButtonStatus = useStore((state: Store) => state.status);
     const setStats = useStore((state: Store) => state.setStats);
     const setStatus = useStore((state: Store) => state.setStatus);
     const [fileName, setFileName] = useState<string | undefined>(undefined);
@@ -20,7 +20,7 @@ const View: React.FC = () => {
         const file = event.target.files?.[0];
         setFileName(file?.name);
         setFile(file ?? null);
-        setStatus(ButtonUploadStatus.Loaded);
+        setStatus(ActionButtonStatus.Loaded);
     };
 
     const handleFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -29,7 +29,7 @@ const View: React.FC = () => {
         console.log('Files dropped:', event.dataTransfer.files);
         setFileName(file?.name);
         setFile(file ?? null);
-        setStatus(ButtonUploadStatus.Loaded);
+        setStatus(ActionButtonStatus.Loaded);
     };
 
     const handleFileSend = () => {
@@ -39,7 +39,7 @@ const View: React.FC = () => {
     };
 
     const handleAbort = () => {
-        setStatus(ButtonUploadStatus.Idle);
+        setStatus(ActionButtonStatus.Idle);
         setFileName(undefined);
         setFile(null);
         setStats(null);
@@ -52,17 +52,17 @@ const View: React.FC = () => {
                 Загрузите <b>csv</b> файл и получите <b>полную информацию</b>{' '}
                 о нём за сверхнизкое время
             </h2>
-            <ButtonUpload
+            <ActionButton
                 status={status}
                 onChange={handleFileUpload}
-                fileName={fileName}
+                label={fileName}
                 onAbort={handleAbort}
                 onDrop={handleFileDrop}
                 onDragOver={(e) => {
                     e.preventDefault();
-                    setStatus(ButtonUploadStatus.Dragging);
+                    setStatus(ActionButtonStatus.Dragging);
                 }}
-                onDragLeave={() => setStatus(ButtonUploadStatus.Idle)}
+                onDragLeave={() => setStatus(ActionButtonStatus.Idle)}
             />
             <Button onClick={handleFileSend}>Отправить</Button>
             {stats && (
