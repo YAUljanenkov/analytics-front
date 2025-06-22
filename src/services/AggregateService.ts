@@ -6,7 +6,9 @@ export const AggregateService = {
     loadFile: async (
         file: File,
         onData: (s: Stats) => void,
-        setStatus: (s: ActionButtonStatus) => void
+        setStatus: (s: ActionButtonStatus) => void,
+        onSuccess: (s: Stats) => void,
+        onError: () => void
     ) => {
         if (!file.name.includes('.csv')) {
             setStatus(ActionButtonStatus.Error);
@@ -15,9 +17,10 @@ export const AggregateService = {
 
         try {
             setStatus(ActionButtonStatus.Parsing);
-            await AnalyticsApi.loadFile(file, onData);
+            await AnalyticsApi.loadFile(file, onData, onSuccess);
             setStatus(ActionButtonStatus.Success);
         } catch {
+            onError();
             setStatus(ActionButtonStatus.Error);
         }
     },

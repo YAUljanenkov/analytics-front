@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { Header, ActionButton } from '../../components';
 import { Button, StatsItem } from '../../ui';
 import styles from './styles.module.css';
-import type { Stats } from 'src/types';
-import { parseDayNumber } from '../../utils';
+import { getCurrentDate, parseDayNumber } from '../../utils';
 import { AggregateService } from '../../services';
-import { useStore, type Store } from '../../store';
+import { useStore, usePersistStore } from '../../store';
 import { ActionButtonStatus } from '../../types';
 
 const View: React.FC = () => {
-    const stats: Stats = useStore((state: Store) => state.stats);
-    const status: ActionButtonStatus = useStore((state: Store) => state.status);
-    const setStats = useStore((state: Store) => state.setStats);
-    const setStatus = useStore((state: Store) => state.setStatus);
+    const stats = useStore((state) => state.stats);
+    const status: ActionButtonStatus = useStore((state) => state.status);
+    const setStats = useStore((state) => state.setStats);
+    const setStatus = useStore((state) => state.setStatus);
+    const setProcessed = usePersistStore((state) => state.setProcessed);
     const [fileName, setFileName] = useState<string | undefined>(undefined);
     const [file, setFile] = useState<File | null>(null);
 
@@ -34,7 +34,27 @@ const View: React.FC = () => {
 
     const handleFileSend = () => {
         if (file) {
-            AggregateService.loadFile(file, setStats, setStatus);
+            AggregateService.loadFile(
+                file,
+                setStats,
+                setStatus,
+                (item) => {
+                    console.log('called');
+                    setProcessed({
+                        filename: file.name,
+                        date: getCurrentDate(),
+                        success: true,
+                        data: item,
+                    });
+                },
+                () => {
+                    setProcessed({
+                        filename: file.name,
+                        date: getCurrentDate(),
+                        success: false,
+                    });
+                }
+            );
         }
     };
 

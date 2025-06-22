@@ -2,13 +2,13 @@ import React from 'react';
 import { Header, ActionButton } from '../../components';
 import { Button } from '../../ui';
 import styles from './styles.module.css';
-import { useStore, type Store } from '../../store';
+import { useStore } from '../../store';
 import { ActionButtonStatus } from '../../types';
 import { GenerateService } from '../../services';
 
 const View: React.FC = () => {
-    const status = useStore((state: Store) => state.generatingStatus);
-    const setStatus = useStore((state: Store) => state.setGeneratingStatus);
+    const status = useStore((state) => state.generatingStatus);
+    const setStatus = useStore((state) => state.setGeneratingStatus);
     const label = status === ActionButtonStatus.Error ? 'Ошибка' : '';
     return (
         <div>

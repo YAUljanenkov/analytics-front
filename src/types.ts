@@ -28,3 +28,10 @@ export enum ActionButtonStatus {
     Success,
     Error,
 }
+
+export interface ProcessedItem {
+    filename: string;
+    date: string;
+    success: boolean;
+    data?: Stats;
+}
