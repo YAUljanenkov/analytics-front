@@ -21,8 +21,10 @@ const View: React.FC = () => {
                     <ResultItem
                         result={item}
                         onClick={() => {
-                            setItem(item);
-                            setIsOpen(true);
+                            if (item.success) {
+                                setItem(item);
+                                setIsOpen(true);
+                            }
                         }}
                         onTrashClick={() => removeItem(item.id)}
                     />

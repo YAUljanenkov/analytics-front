@@ -26,7 +26,6 @@ const View: React.FC = () => {
     const handleFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         const file = event.dataTransfer.files?.[0];
-        console.log('Files dropped:', event.dataTransfer.files);
         setFileName(file?.name);
         setFile(file ?? null);
         setStatus(ActionButtonStatus.Loaded);

@@ -11,6 +11,7 @@ export const AggregateService = {
         onError: () => void
     ) => {
         if (!file.name.includes('.csv')) {
+            onError();
             setStatus(ActionButtonStatus.Error);
             return;
         }
