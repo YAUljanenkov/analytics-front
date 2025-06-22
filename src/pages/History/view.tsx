@@ -13,6 +13,7 @@ const View: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [item, setItem] = useState<ProcessedItem | null>(null);
     const navigate = useNavigate();
+
     return (
         <div>
             <Header />
@@ -27,6 +28,7 @@ const View: React.FC = () => {
                             }
                         }}
                         onTrashClick={() => removeItem(item.id)}
+                        key={item.id}
                     />
                 ))}
                 <div className={styles.buttonsContainer}>
