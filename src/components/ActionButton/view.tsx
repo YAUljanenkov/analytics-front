@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styles from './styles.module.css';
 import { proiconsCancel, mingcuteLoading } from '../../assets';
 import classNames from 'classnames';
+import { Button } from '../../ui';
 import { ActionButtonStatus } from '../../types';
 
 interface ActionButtonProps {
@@ -124,9 +125,9 @@ const ActionButton: React.FC<ActionButtonProps> = ({
                     style={{ display: 'none' }}
                 />
                 {isShowCancelButton && (
-                    <button className={styles.cancelButton} onClick={onAbort}>
+                    <Button design="secondary" squared onClick={onAbort}>
                         <img src={proiconsCancel} alt="cancel" />
-                    </button>
+                    </Button>
                 )}
             </div>
             <span className={styles.label}>{statusToLabel[status]}</span>

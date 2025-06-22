@@ -4,3 +4,6 @@ export { default as ouiGenerate } from './oui_generate.svg';
 export { default as solarHistory } from './solar_history.svg';
 export { default as proiconsCancel } from './proicons_cancel.svg';
 export { default as mingcuteLoading } from './mingcute_loading.svg';
+export { default as smileSad } from './smile_sad.svg';
+export { default as smile } from './smile.svg';
+export { default as trash } from './trash.svg';

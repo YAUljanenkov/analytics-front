@@ -2,9 +2,6 @@
     border-radius: 16px;
     padding: 8px 16px;
     border: none;
-    height: 70px;
-    min-width: 200px;
-    max-width: 250px;
     font-family: Roboto;
     font-weight: 400;
     font-size: 24px;
@@ -12,6 +9,18 @@
     letter-spacing: 0%;
     text-align: center;
     cursor: pointer;
+}
+
+.buttonSquared {
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonSquared:active {
+    transform: scale(0.95);
 }
 
 .button:active {
@@ -37,4 +46,30 @@
     background-color: rgba(192, 192, 192, 1));
     color: rgba(120, 120, 120, 1);
     cursor: not-allowed;
+}
+
+.button__light {
+    background-color: white;
+}
+
+.size__m {
+    height: 60px;
+}
+
+.size__l {
+    height: 80px;
+}
+
+.size__m__squared {
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    border-radius: 10px;
+}
+
+.size__l__squared {
+    height: 80px;
+    width: 80px;
+    min-width: 80px;
+    border-radius: 16px;
 }

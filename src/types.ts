@@ -30,6 +30,7 @@ export enum ActionButtonStatus {
 }
 
 export interface ProcessedItem {
+    id: string;
     filename: string;
     date: string;
     success: boolean;

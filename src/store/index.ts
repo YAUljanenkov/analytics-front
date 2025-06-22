@@ -15,6 +15,7 @@ export interface Store {
 export interface PersistStore {
     processed: ProcessedItem[];
     setProcessed: (item: ProcessedItem) => void;
+    removeItem: (id: string) => void;
     clearProcessed: () => void;
 }
 
@@ -35,6 +36,10 @@ export const usePersistStore = create(
             setProcessed: (item) =>
                 set({ processed: [item, ...get().processed] }),
             clearProcessed: () => set({ processed: [] }),
+            removeItem: (id) =>
+                set({
+                    processed: get().processed.filter((item) => item.id !== id),
+                }),
         }),
         {
             storage: createJSONStorage(() => localStorage),

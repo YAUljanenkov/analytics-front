@@ -1,0 +1,52 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 30px;
+    background-color: #CB81FF;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.container:active {
+    transform: scale(0.98);
+}
+
+.defaultText {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+}
+
+.defaultText img {
+    width: 40px;
+    height: 40px;
+}
+
+.greyText {
+    display: flex;
+    color: #8F64AE;
+    align-items: center;
+    gap: 5px;
+
+}
+
+.greyText img {
+    width: 40px;
+    height: 40px;
+    filter: invert(45%) sepia(7%) saturate(3211%) hue-rotate(232deg) brightness(96%) contrast(90%);
+}
+
+.wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+}

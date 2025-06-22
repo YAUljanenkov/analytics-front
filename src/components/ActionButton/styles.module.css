@@ -93,22 +93,6 @@
     background-color: rgba(212, 250, 230, 1);
 }
 
-.cancelButton {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(32, 27, 16, 1);
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.cancelButton:active {
-    transform: scale(0.95);
-}
-
 .label {
     font-size: 24px;
     color: rgba(32, 27, 16, 1);

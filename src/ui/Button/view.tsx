@@ -5,8 +5,10 @@ import classNames from 'classnames';
 interface ButtonProps {
     children?: React.ReactNode;
     onClick?: () => void;
-    design?: 'primary' | 'secondary' | 'accent';
+    design?: 'primary' | 'secondary' | 'accent' | 'light';
     disabled?: boolean;
+    squared?: boolean;
+    size?: 'm' | 'l';
 }
 
 const getDesignClass = (design: string, disabled: boolean) => {
@@ -21,6 +23,8 @@ const getDesignClass = (design: string, disabled: boolean) => {
             return styles.button__secondary;
         case 'accent':
             return styles.button__accent;
+        case 'light':
+            return styles.button__light;
         default:
             return styles.button__primary;
     }
@@ -31,12 +35,17 @@ const Button: React.FC<ButtonProps> = ({
     onClick,
     design = 'primary',
     disabled = false,
+    squared = false,
+    size = 'm',
 }) => {
     return (
         <button
             className={classNames(
-                styles.button,
-                getDesignClass(design, disabled ?? false)
+                squared ? styles.buttonSquared : styles.button,
+                getDesignClass(design, disabled ?? false),
+                squared
+                    ? styles[`size__${size}__squared`]
+                    : styles[`size__${size}`]
             )}
             onClick={onClick}
             disabled={disabled}

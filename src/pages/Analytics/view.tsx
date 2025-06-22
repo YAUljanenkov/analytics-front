@@ -39,8 +39,8 @@ const View: React.FC = () => {
                 setStats,
                 setStatus,
                 (item) => {
-                    console.log('called');
                     setProcessed({
+                        id: crypto.randomUUID(),
                         filename: file.name,
                         date: getCurrentDate(),
                         success: true,
@@ -49,6 +49,7 @@ const View: React.FC = () => {
                 },
                 () => {
                     setProcessed({
+                        id: crypto.randomUUID(),
                         filename: file.name,
                         date: getCurrentDate(),
                         success: false,
