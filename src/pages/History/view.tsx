@@ -30,7 +30,7 @@ const View: React.FC = () => {
                 <div className={styles.buttonsContainer}>
                     <Button
                         design="primary"
-                        onClick={() => navigate(Routes.Analytics)}
+                        onClick={() => navigate(Routes.Generate)}
                     >
                         Сгенерировать больше
                     </Button>
