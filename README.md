@@ -1,54 +1,29 @@
-# React + TypeScript + Vite
+# Analytics front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Этот проект был разработан как домашнее задание для Школы Разработки Интерфейсов 2025 Яндекса.
 
-Currently, two official plugins are available:
+## Запуск:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-    extends: [
-        // Remove ...tseslint.configs.recommended and replace with this
-        ...tseslint.configs.recommendedTypeChecked,
-        // Alternatively, use this for stricter rules
-        ...tseslint.configs.strictTypeChecked,
-        // Optionally, add this for stylistic rules
-        ...tseslint.configs.stylisticTypeChecked,
-    ],
-    languageOptions: {
-        // other options...
-        parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname,
-        },
-    },
-})
+```
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Архитектура
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+В папке `api` лежат функции, содержащие fetch запросы по API, а также сервис, который получает данные по запросам.
 
-export default tseslint.config({
-    plugins: {
-        // Add the react-x and react-dom plugins
-        'react-x': reactX,
-        'react-dom': reactDom,
-    },
-    rules: {
-        // other rules...
-        // Enable its recommended typescript rules
-        ...reactX.configs['recommended-typescript'].rules,
-        ...reactDom.configs.recommended.rules,
-    },
-})
-```
+В папке `assets` лежат изображения и иконки.
+
+В папке `components` лежат UI компоненты.
+
+В папке `pages` лежат компоненты-страницы.
+
+В папке `services` лежат сервисы, отвечающие логику генерации файла и аггрегации данных из файла. Эти сервисы напрямую работают с сервисом API, UI компоненты и store с сервисом API не взаимодействует.
+
+В папке `store` лежит хранилище состояния zustand. С ним напрямую взаимодействуют только UI компоненты из `pages`. Они же связывают store с бизнес-сервисами.
+
+В папке `utils` лежат вспомогательные функции.
+
+В файле `types.ts` лежат общие типы.
+
+Для работы с `localStorage` было создано отдельное хранилище в `store`, использующее middleware `persist` из пакета zustand. Оно автоматически сохраняет и обновляет это хранилище в `localStorage`.
