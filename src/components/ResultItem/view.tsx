@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import type { ProcessedItem } from 'src/types';
 import { smile, smileSad, trash } from '../../assets';
 import classNames from 'classnames';
-import { Button } from '../Button';
+import { Button } from '../../ui/Button';
 
 interface ResultItemProps {
     result: ProcessedItem;

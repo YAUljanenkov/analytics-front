@@ -1,15 +1,17 @@
-import React from 'react';
-import { Header } from '../../components/Header';
+import React, { useState } from 'react';
+import { Header, ResultItem, Modal } from '../../components';
 import { usePersistStore } from '../../store';
 import styles from './styles.module.css';
-import { Button, ResultItem } from '../../ui';
+import { Button } from '../../ui';
 import { useNavigate } from 'react-router';
-import { Routes } from '../../types';
+import { type ProcessedItem, Routes } from '../../types';
 
 const View: React.FC = () => {
     const processed = usePersistStore((store) => store.processed);
     const clearProcessed = usePersistStore((store) => store.clearProcessed);
     const removeItem = usePersistStore((store) => store.removeItem);
+    const [isOpen, setIsOpen] = useState(false);
+    const [item, setItem] = useState<ProcessedItem | null>(null);
     const navigate = useNavigate();
     return (
         <div>
@@ -18,8 +20,11 @@ const View: React.FC = () => {
                 {processed.map((item) => (
                     <ResultItem
                         result={item}
-                        onClick={() => {}}
-                        onTrashClick={(item) => removeItem(item.id)}
+                        onClick={() => {
+                            setItem(item);
+                            setIsOpen(true);
+                        }}
+                        onTrashClick={() => removeItem(item.id)}
                     />
                 ))}
                 <div className={styles.buttonsContainer}>
@@ -34,6 +39,13 @@ const View: React.FC = () => {
                     </Button>
                 </div>
             </div>
+            <Modal
+                isOpen={isOpen}
+                onClose={() => {
+                    setIsOpen(false);
+                }}
+                item={item}
+            />
         </div>
     );
 };
